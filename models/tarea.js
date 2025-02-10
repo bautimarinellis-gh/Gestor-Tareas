@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
 // Definir el esquema de la tarea
 const tareaSchema = new mongoose.Schema({
@@ -11,4 +11,4 @@ const tareaSchema = new mongoose.Schema({
 // Crear el modelo "Tarea" basado en el esquema
 const Tarea = mongoose.model("Tarea", tareaSchema);
 
-module.exports = Tarea;
+export default Tarea;
