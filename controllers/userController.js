@@ -10,12 +10,19 @@ import User from '../models/user.js';
 
 const app = express();
 
+const corsOptions = {
+    origin: 'http://127.0.0.1:5500',  // Asegúrate de que coincida con el dominio de tu frontend
+    credentials: true,  // Permite que se envíen cookies
+};
+
 app.use(express.json());
-app.use(cookieParser());
 app.use(cors({
-    origin: 'http://localhost:3000',  // Ajusta al dominio de tu frontend
+    origin: 'http://127.0.0.1:5500',  // Asegúrate de que coincida con el dominio de tu frontend
     credentials: true  // Permite el envío de cookies
 }));
+
+app.use(cors(corsOptions));
+
 
 // Registro de usuario
 const register = async (req, res) => {
@@ -68,7 +75,6 @@ const login = async (req, res) => {
             httpOnly: true,
             secure: false,  // Cambia esto a true si usas HTTPS
             sameSite: 'Strict',  // Prueba con 'Lax' en lugar de 'None'
-            maxAge: 1000 * 60 * 60  // 1 hora
         });
 
         res.json({ message: "Login successful", user: { id: user._id, username: user.username }, token });
@@ -80,9 +86,9 @@ const login = async (req, res) => {
 const logout = (req, res) => {
     res.clearCookie('access_token', {
         httpOnly: true,
-        secure: false, // Asegúrate de establecerlo en true si usas HTTPS
+        secure: false,  // Usa 'true' si tienes HTTPS
         sameSite: 'Strict',
-        maxAge: 0 // Asegúrate de que la cookie tenga una duración de 0 para eliminarla
+        maxAge: 0  // Asegúrate de eliminar la cookie
     }).json({ message: 'Logout successful' });
 };
 

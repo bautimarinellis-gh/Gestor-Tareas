@@ -2,8 +2,8 @@ import mongoose from 'mongoose';
 
 // Definir el esquema de la tarea
 const tareaSchema = new mongoose.Schema({
-    titulo: { type: String, required: true },
-    descripcion: String,
+    titulo: { type: String, required: true },  
+    descripcion: { type: String },             
     completada: { type: Boolean, default: false },
     fechaCreacion: { type: Date, default: Date.now }
 });
